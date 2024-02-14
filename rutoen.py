@@ -79,16 +79,11 @@ legend = {
 'Я':'Ya',
 }
 
-for file_old in os.listdir('.'):
 
-    file_new = latinizator(file_old, legend)
-
-    if '-p' in argv:
-        if file_old == file_new:
-            print ('{0: <30}'.format(file_old), 'не будет переименован' )
-        else:
-            print ('{0: <30}'.format(file_old), 'будет переименован в ', file_new )
-    else:
-        if file_old != file_new:
-            print ('{0: <30}'.format(file_old), 'переименован в ', file_new )
-            os.rename(file_old, file_new)
+temp = os.walk('.', topdown=False)
+for root, dirs, files in temp:
+    for i in dirs:
+        rename_folder = latinizator(i, legend)
+        dir = os.path.join(root,i)
+        dir_new = os.path.join(root, rename_folder)
+        os.rename(dir, dir_new)
